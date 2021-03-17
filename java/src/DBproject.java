@@ -311,14 +311,84 @@ public class DBproject{
 
 	public static void ListNumberOfAvailableSeats(DBproject esql) {//5
 		// For Cruise number and date, find the number of availalbe seats (i.e. total Ship capacity minus booked seats )
+		int crusNum;
+		String date;
+		String querySold;
+		String queryShipID;
+		String querySeats;
+		int seats;
+		int num_sold;
+		int shipID;
+		// returns only if a correct value is given.
+		System.out.print("Please input cruise number: ");
+		try { // read the integer, parse it and break.
+			crusNum = Integer.parseInt(in.readLine());
+		}catch (Exception e) {
+			System.out.println("Your input is invalid!");
+			return;
+		}//end try
+		
+		System.out.print("Please input departure date in the format YYYY-MM-DD");
+		try {
+			date = in.readLine();
+			java.sql.Date.valueOf(date);
+		} catch (Exception e) {
+			System.out.println("Your input is invalid!");
+			return;
+		}		
+		// To find number of available seats subtract ship seats with cruise num_sold
+		querySold = "SELECT COUNT (nuum_sold) FROM Cruise WHERE Cruise.cruz_num = " + crusNum + " AND Cruise.departure_date = " + date + ";\n";
+		queryShipID = "SELECT ship_id FROM CruiseInfo WHERE cruise_id = " + crusNum + ";\n";
+		/*
+		shipID = executeQueryAndReturnResult(queryShipID);
+		querySeats = "SELECT COUNT (seats) FROM Ship WHERE id = " + shipID + ";\n";
+		num_sold = executeQueryAndReturnResult(querySold);
+		seats = executeQueryAndReturnResult(querySeats);
+		System.out.print("There are: ");
+		System.out.print(seats - num_sold);
+		System.out.print(" seats available");*/
+		return;
+
 	}
 
 	public static void ListsTotalNumberOfRepairsPerShip(DBproject esql) {//6
 		// Count number of repairs per Ships and list them in descending order
+		String query;
+		query = "SELECT shipID FROM Repairs ORDER BY COUNT(ship_id) DESC;\n";
+		executeQueryAndPrintResult(query);
 	}
 
 	
 	public static void FindPassengersCountWithStatus(DBproject esql) {//7
 		// Find how many passengers there are with a status (i.e. W,C,R) and list that number.
+		// W means waitlisted, C means completed, and R means reserved
+		int crusNum;
+		char P_status;
+		String query;
+
+		// returns only if a correct value is given.
+		System.out.print("Please input cruise number: ");
+		try { // read the integer, parse it and break.
+			crusNum = Integer.parseInt(in.readLine());
+		}catch (Exception e) {
+			System.out.println("Your input is invalid!");
+			return;
+		}//end try
+		
+		System.out.print("Please input W: For waitlist, C for confirmed, or R for reservation: ");
+		P_status = reader.next().charAt(0);
+		if(P_status != 'W' || P_status != 'C' || P_status != 'R')
+		{	
+			System.out.println("Your input is invalid!");
+			break;
+		}		
+		else // Print out passangers with 
+		{
+			//BufferedReader br = new;
+			//BufferedReader(newFileReader(~/CS166Phase3/data/reservations.src);
+			query = "SELECT COUNT (status) FROM Reservation WHERE cid = " + crusNum + " AND status = " + P_status + ";\n";
+			executeQueryAndPrintResult(query);
+		}
+		return;
 	}
 }
