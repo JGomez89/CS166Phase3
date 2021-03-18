@@ -427,6 +427,16 @@ public class DBproject{
 
 	public static void BookCruise(DBproject esql) {//4
 		// Given a customer and a Cruise that he/she wants to book, add a reservation to the DB
+		String filename = "reservation.csv";
+		String type[] = new String[3];
+		String datatype[] = new String[3];
+		type[0] = "customer's ID";
+		type[1] = "cruise's ID";
+		type[2] = "status";
+		datatype[0] = "(\"ccid\"=INTEGER)";
+		datatype[1] = "(\"cid\"=INTEGER)";
+		datatype[2] = "(\"status\"=CHAR(1) IN ('W','C','R'))";
+		ioWrite(filename,type,datatype);
 	}
 
 	public static void ListNumberOfAvailableSeats(DBproject esql) {//5
