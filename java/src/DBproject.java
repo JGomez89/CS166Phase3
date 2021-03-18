@@ -324,8 +324,8 @@ public class DBproject{
 			}while (true);
 		}
 	  try { // write the info into the given filename
-	    FileWriter myWriter = new FileWriter("../../data/"+filename);
-			BufferedReader br = new BufferedReader(new FileReader("../../data/"+filename));
+	    FileWriter myWriter = new FileWriter("../data/"+filename);
+			BufferedReader br = new BufferedReader(new FileReader("../data/"+filename));
 
 			// find the smallest ID available in the file
 			String sCurrentLine="";
@@ -355,7 +355,7 @@ public class DBproject{
 
 	public static List<String[]> readData(String file) throws Exception {
     List<String[]> content = new ArrayList<>();
-    try(BufferedReader br = new BufferedReader(new FileReader("../../data/"+file))) {
+    try(BufferedReader br = new BufferedReader(new FileReader("../data/"+file))) {
         String line = "";
         while ((line = br.readLine()) != null) {
             content.add(line.split(","));
