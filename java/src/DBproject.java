@@ -211,7 +211,7 @@ public class DBproject{
 	 * 
 	 * @param args the command line arguments this inclues the <mysql|pgsql> <login file>
 	 */
-	public static void main (String[] args) {
+	public void main (String[] args) {
 		if (args.length != 3) {
 			System.err.println (
 				"Usage: " + "java [-classpath <classpath>] " + DBproject.class.getName () +
@@ -309,7 +309,7 @@ public class DBproject{
 		// Given a customer and a Cruise that he/she wants to book, add a reservation to the DB
 	}
 
-	public static void ListNumberOfAvailableSeats(DBproject esql) {//5
+	public void ListNumberOfAvailableSeats(DBproject esql) {//5
 		// For Cruise number and date, find the number of availalbe seats (i.e. total Ship capacity minus booked seats )
 		int crusNum;
 		String date;
@@ -339,31 +339,57 @@ public class DBproject{
 		// To find number of available seats subtract ship seats with cruise num_sold
 		querySold = "SELECT COUNT (nuum_sold) FROM Cruise WHERE Cruise.cruz_num = " + crusNum + " AND Cruise.departure_date = " + date + ";\n";
 		queryShipID = "SELECT ship_id FROM CruiseInfo WHERE cruise_id = " + crusNum + ";\n";
-		/*
-		shipID = executeQueryAndReturnResult(queryShipID);
+		try{
+		shipID = Integer.parseInt(executeQueryAndReturnResult(queryShipID).get(0).get(0));
+		}  catch (Exception SQLException)
+		{
+			System.out.println("Error acquiring shipID.");	
+			return;
+		} 
 		querySeats = "SELECT COUNT (seats) FROM Ship WHERE id = " + shipID + ";\n";
-		num_sold = executeQueryAndReturnResult(querySold);
-		seats = executeQueryAndReturnResult(querySeats);
+		try{
+		num_sold = Integer.parseInt(executeQueryAndReturnResult(querySold).get(0).get(0));
+		}  catch (Exception SQLException)
+		{
+			System.out.println("Error acquiring tickets sold");	
+			return;
+		} 
+		try {
+		seats = Integer.parseInt(executeQueryAndReturnResult(querySeats).get(0).get(0));
+		}  catch (Exception SQLException)
+		{
+			System.out.println("Error acquiring seats on ship.");	
+			return;
+		} 
+
 		System.out.print("There are: ");
 		System.out.print(seats - num_sold);
-		System.out.print(" seats available");*/
+		System.out.print(" seats available");
 		return;
 
 	}
 
-	public static void ListsTotalNumberOfRepairsPerShip(DBproject esql) {//6
+	public void ListsTotalNumberOfRepairsPerShip(DBproject esql) {//6
 		// Count number of repairs per Ships and list them in descending order
 		String query;
 		query = "SELECT shipID FROM Repairs ORDER BY COUNT(ship_id) DESC;\n";
+		try {
 		executeQueryAndPrintResult(query);
+		}  catch (Exception SQLException)
+		{
+			System.out.println("Error acquiring repairs.");	
+			return;
+		} 
+
+		
 	}
 
 	
-	public static void FindPassengersCountWithStatus(DBproject esql) {//7
+	public void FindPassengersCountWithStatus(DBproject esql) {//7
 		// Find how many passengers there are with a status (i.e. W,C,R) and list that number.
 		// W means waitlisted, C means completed, and R means reserved
 		int crusNum;
-		char P_status;
+		String P_status;
 		String query;
 
 		// returns only if a correct value is given.
@@ -376,18 +402,26 @@ public class DBproject{
 		}//end try
 		
 		System.out.print("Please input W: For waitlist, C for confirmed, or R for reservation: ");
-		P_status = reader.next().charAt(0);
-		if(P_status != 'W' || P_status != 'C' || P_status != 'R')
+		try {
+			P_status = in.readLine();
+		} catch (Exception e) {
+			System.out.println("Your input is invalid!");
+			return;
+		}
+		if(P_status != "W" || P_status != "C" || P_status != "R")
 		{	
 			System.out.println("Your input is invalid!");
-			break;
+			return;
 		}		
 		else // Print out passangers with 
 		{
-			//BufferedReader br = new;
-			//BufferedReader(newFileReader(~/CS166Phase3/data/reservations.src);
 			query = "SELECT COUNT (status) FROM Reservation WHERE cid = " + crusNum + " AND status = " + P_status + ";\n";
+			try {
 			executeQueryAndPrintResult(query);
+			} catch (Exception e)	{
+				System.out.println("Error getting reservation.");
+				return;
+			}
 		}
 		return;
 	}
