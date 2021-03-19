@@ -295,7 +295,7 @@ public class DBproject{
 		return input;
 	}//end readChoice
 
-	public void AddShip(DBproject esql) {//1
+	public static void AddShip(DBproject esql) {//1
 		String make,model,age,seats;
 
 		System.out.print("Please enter the ship\'s make: ");
@@ -330,14 +330,14 @@ public class DBproject{
 		String csv_inputs = String.join(",",make,model,age,seats);
 		String query = "INSERT INTO Ship (make, model, age, seats) VALUES ("+csv_inputs+");\n";
 		try {
-			executeUpdate(query);
+			esql.executeUpdate(query);
 		}  catch (Exception SQLException)
 		{ System.out.println("Error running query!");
 			return;
 		}
 	}
 
-	public void AddCaptain(DBproject esql) {//2
+	public static void AddCaptain(DBproject esql) {//2
 		String fullname, nationality;
 
 		System.out.print("Please enter captain\'s fullname: ");
@@ -358,14 +358,14 @@ public class DBproject{
 		String csv_inputs = String.join(",",fullname, nationality);
 		String query = "INSERT INTO Captain (fullname, nationality) VALUES ("+csv_inputs+");\n";
 		try {
-			executeUpdate(query);
+			esql.executeUpdate(query);
 		}  catch (Exception SQLException)
 		{ System.out.println("Error running query!");
 			return;
 		}
 	}
 
-	public void AddCruise(DBproject esql) {//3
+	public static void AddCruise(DBproject esql) {//3
 		String cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_port, departure_port;
 
 		System.out.print("Please enter cost of cruise: ");
@@ -423,7 +423,7 @@ public class DBproject{
 		String csv_inputs = String.join(",",cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_port, departure_port);
 		String query = "INSERT INTO Cruise (cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_port, departure_port) VALUES ("+csv_inputs+");\n";
 		try {
-			executeUpdate(query);
+			esql.executeUpdate(query);
 		}  catch (Exception SQLException)
 		{ System.out.println("Error running query!");
 			return;
@@ -431,7 +431,7 @@ public class DBproject{
 	}
 
 
-	public void BookCruise(DBproject esql) {//4
+	public static void BookCruise(DBproject esql) {//4
 		// Given a customer and a Cruise that he/she wants to book, add a reservation to the DB
 		String ccid, cid, status;
 
@@ -460,14 +460,14 @@ public class DBproject{
 		String csv_inputs = String.join(",",ccid, cid, status);
 		String query = "INSERT INTO Captain (ccid, cid, status) VALUES ("+csv_inputs+");\n";
 		try {
-			executeUpdate(query);
+			esql.executeUpdate(query);
 		}  catch (Exception SQLException)
 		{ System.out.println("Error running query!");
 			return;
 		}
 	}
 
-	public void ListNumberOfAvailableSeats(DBproject esql) {//5
+	public static void ListNumberOfAvailableSeats(DBproject esql) {//5
 		// For Cruise number and date, find the number of availalbe seats (i.e. total Ship capacity minus booked seats )
 		int crusNum;
 		String date;
@@ -498,7 +498,7 @@ public class DBproject{
 		querySold = "SELECT COUNT (nuum_sold) FROM Cruise WHERE Cruise.cruz_num = " + crusNum + " AND Cruise.departure_date = " + date + ";\n";
 		queryShipID = "SELECT ship_id FROM CruiseInfo WHERE cruise_id = " + crusNum + ";\n";
 		try{
-		shipID = Integer.parseInt(executeQueryAndReturnResult(queryShipID).get(0).get(0));
+			shipID = Integer.parseInt(esql.executeQueryAndReturnResult(queryShipID).get(0).get(0));
 		}  catch (Exception SQLException)
 		{
 			System.out.println("Error acquiring shipID.");
@@ -506,14 +506,14 @@ public class DBproject{
 		}
 		querySeats = "SELECT COUNT (seats) FROM Ship WHERE id = " + shipID + ";\n";
 		try{
-		num_sold = Integer.parseInt(executeQueryAndReturnResult(querySold).get(0).get(0));
+			num_sold = Integer.parseInt(esql.executeQueryAndReturnResult(querySold).get(0).get(0));
 		}  catch (Exception SQLException)
 		{
 			System.out.println("Error acquiring tickets sold");
 			return;
 		}
 		try {
-		seats = Integer.parseInt(executeQueryAndReturnResult(querySeats).get(0).get(0));
+			seats = Integer.parseInt(esql.executeQueryAndReturnResult(querySeats).get(0).get(0));
 		}  catch (Exception SQLException)
 		{
 			System.out.println("Error acquiring seats on ship.");
@@ -527,12 +527,12 @@ public class DBproject{
 
 	}
 
-	public void ListsTotalNumberOfRepairsPerShip(DBproject esql) {//6
+	public static void ListsTotalNumberOfRepairsPerShip(DBproject esql) {//6
 		// Count number of repairs per Ships and list them in descending order
 		String query;
 		query = "SELECT shipID FROM Repairs ORDER BY COUNT(ship_id) DESC;\n";
 		try {
-		executeQueryAndPrintResult(query);
+			esql.executeQueryAndPrintResult(query);
 		}  catch (Exception SQLException)
 		{
 			System.out.println("Error acquiring repairs.");
@@ -543,7 +543,7 @@ public class DBproject{
 	}
 
 
-	public void FindPassengersCountWithStatus(DBproject esql) {//7
+	public static void FindPassengersCountWithStatus(DBproject esql) {//7
 		// Find how many passengers there are with a status (i.e. W,C,R) and list that number.
 		// W means waitlisted, C means completed, and R means reserved
 		int crusNum;
@@ -575,7 +575,7 @@ public class DBproject{
 		{
 			query = "SELECT COUNT (status) FROM Reservation WHERE cid = " + crusNum + " AND status = " + P_status + ";\n";
 			try {
-			executeQueryAndPrintResult(query);
+				esql.executeQueryAndPrintResult(query);
 			} catch (Exception e)	{
 				System.out.println("Error getting reservation.");
 				return;
