@@ -327,9 +327,11 @@ public class DBproject{
 			return;
 		}
 
-		String csv_inputs = String.join(",",make,model,age,seats);
-		String query = "INSERT INTO Ship (make, model, age, seats) VALUES ("+csv_inputs+");\n";
 		try {
+			esql.executeUpdate("SELECT NEXT VALUE for Ship.id;\n");
+			String key = String.valueOf(esql.getCurrSeqVal("Ship.id"));
+			String csv_inputs = String.join(",",key,make,model,age,seats);
+			String query = "INSERT INTO Ship (id, make, model, age, seats) VALUES ("+csv_inputs+");\n";
 			esql.executeUpdate(query);
 		}  catch (Exception SQLException)
 		{ System.out.println("Error running query!");
@@ -355,9 +357,11 @@ public class DBproject{
 			return;
 		}
 
-		String csv_inputs = String.join(",",fullname, nationality);
-		String query = "INSERT INTO Captain (fullname, nationality) VALUES ("+csv_inputs+");\n";
 		try {
+			esql.executeUpdate("SELECT NEXT VALUE for Captain.id;\n");
+			String key = String.valueOf(esql.getCurrSeqVal("Captain.id"));
+			String csv_inputs = String.join(",", key, fullname, nationality);
+			String query = "INSERT INTO Captain (id, fullname, nationality) VALUES ("+csv_inputs+");\n";
 			esql.executeUpdate(query);
 		}  catch (Exception SQLException)
 		{ System.out.println("Error running query!");
@@ -420,9 +424,11 @@ public class DBproject{
 			return;
 		}
 
-		String csv_inputs = String.join(",",cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_port, departure_port);
-		String query = "INSERT INTO Cruise (cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_port, departure_port) VALUES ("+csv_inputs+");\n";
 		try {
+			esql.executeUpdate("SELECT NEXT VALUE for Cruise.cnum;\n");
+			String key = String.valueOf(esql.getCurrSeqVal("Cruise.cnum"));
+			String csv_inputs = String.join(",", key, cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_port, departure_port);
+			String query = "INSERT INTO Cruise (cnum, cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_port, departure_port) VALUES ("+csv_inputs+");\n";
 			esql.executeUpdate(query);
 		}  catch (Exception SQLException)
 		{ System.out.println("Error running query!");
@@ -457,9 +463,12 @@ public class DBproject{
 			return;
 		}
 
-		String csv_inputs = String.join(",",ccid, cid, status);
-		String query = "INSERT INTO Captain (ccid, cid, status) VALUES ("+csv_inputs+");\n";
 		try {
+			esql.executeUpdate("SELECT NEXT VALUE for Reservation.rnum;\n");
+			// String sequence = esql.executeQueryAndReturnResult("SELECT rnum FROM Reservation;\n")
+			String key = String.valueOf(esql.getCurrSeqVal("Reservation.rnum"));
+			String csv_inputs = String.join(",", key, ccid, cid, status);
+			String query = "INSERT INTO Reservation (rnum, ccid, cid, status) VALUES ("+csv_inputs+");\n";
 			esql.executeUpdate(query);
 		}  catch (Exception SQLException)
 		{ System.out.println("Error running query!");
