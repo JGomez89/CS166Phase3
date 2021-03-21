@@ -587,7 +587,7 @@ public class DBproject{
 		}
 		if(P_status != "W" && P_status != "C" && P_status != "R")
 		{
-			System.out.println("Your input is invalid!");
+			System.out.println("Your given status is invaluid!");
 			return;
 		}
 		else // Print out passangers with
