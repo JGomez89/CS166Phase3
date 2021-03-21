@@ -327,14 +327,14 @@ public class DBproject{
 			return;
 		}
 
+		// try {
+		// 	esql.executeUpdate("SELECT NEXT VALUE for Ship.id;\n");
+		// }  catch (Exception SQLException)
+		// { System.out.println("Error getting next value for Ship.id!");
+		// 	return;
+		// }
 		try {
-			esql.executeUpdate("SELECT NEXT VALUE for Ship.id;\n");
-		}  catch (Exception SQLException)
-		{ System.out.println("Error getting next value for Ship.id!");
-			return;
-		}
-		try {
-			key = String.valueOf(esql.getCurrSeqVal("Ship.id"));
+			key = String.valueOf(esql.getCurrSeqVal("Ship.id") + 1);
 		}  catch (Exception SQLException)
 		{ System.out.println("Error getting current squenve value!");
 			return;
