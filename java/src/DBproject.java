@@ -326,15 +326,9 @@ public class DBproject{
 			System.out.println("Your input is invalid!");
 			return;
 		}
-
-		// try {
-		// 	esql.executeUpdate("SELECT NEXT VALUE for Ship.id;\n");
-		// }  catch (Exception SQLException)
-		// { System.out.println("Error getting next value for Ship.id!");
-		// 	return;
-		// }
+		
 		try {
-			key = String.valueOf(esql.getCurrSeqVal("Ship.id") + 1);
+			key = String.valueOf(esql.getCurrSeqVal("Ship_id_seq") + 1);
 		}  catch (Exception SQLException)
 		{ System.out.println("Error getting current squenve value!");
 			return;
