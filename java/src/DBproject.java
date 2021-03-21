@@ -30,7 +30,7 @@ import java.util.ArrayList;
  *
  */
 
-public class DBproject{
+public static class DBproject{
 	//reference to physical database connection
 	private Connection _connection = null;
 	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
