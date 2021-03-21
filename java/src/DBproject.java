@@ -30,7 +30,7 @@ import java.util.ArrayList;
  *
  */
 
-public static class DBproject{
+public class DBproject{
 	//reference to physical database connection
 	private Connection _connection = null;
 	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -211,7 +211,7 @@ public static class DBproject{
 	 *
 	 * @param args the command line arguments this inclues the <mysql|pgsql> <login file>
 	 */
-	public void main (String[] args) {
+	public static void main (String[] args) {
 		if (args.length != 3) {
 			System.err.println (
 				"Usage: " + "java [-classpath <classpath>] " + DBproject.class.getName () +
