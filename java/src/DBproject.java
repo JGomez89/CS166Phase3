@@ -316,23 +316,30 @@ public class DBproject{
 		System.out.print("Please enter the ship's age (YYYY): ");
 		try {
 			age = in.readLine();
+			if (Integer.parseInt(age) < 0) {
+				throw new Exception("xxxx");
+			}
 		}catch (Exception e) {
-			System.out.println("Your input is invalid!");
+			if (Integer.parseInt(age) < 0) {
+				System.out.println("Error! Age must be positive.");
+			}
+			else{System.out.println("Your input is invalid!");}
 			return;
-		}
-		if (Integer.parseInt(age) < 0) {
-			throw new Exception("Error! Ship's age must be positive.");
 		}
 		System.out.print("Please enter the number of seats on the ship: ");
 		try {
 			seats = in.readLine();
+			if (Integer.parseInt(seats) <= 0 || Integer.parseInt(seats) >= 500) {
+				throw new Exception("xxxx");
+			}
 		}catch (Exception e) {
-			System.out.println("Your input is invalid!");
+			if (Integer.parseInt(seats) <= 0 || Integer.parseInt(seats) >= 500) {
+				System.out.println("Error! Number of seats must be between 0 and 500.");
+			}
+			else{System.out.println("Your input is invalid!");}
 			return;
 		}
-		if (Integer.parseInt(seats) <= 0 || Integer.parseInt(seats) >= 500) {
-			throw new Exception("Error! Number of seats must be between 0 and 500.");
-		}
+
 
 		try {
 			key = String.valueOf(esql.getCurrSeqVal("'Ship','id'"));
