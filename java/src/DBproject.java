@@ -296,7 +296,7 @@ public class DBproject{
 	}//end readChoice
 
 	public static void AddShip(DBproject esql) {//1
-		String make,model,age,seats;
+		String key,make,model,age,seats;
 
 		System.out.print("Please enter the ship\'s make: ");
 		try {
@@ -334,7 +334,7 @@ public class DBproject{
 			return;
 		}
 		try {
-			String key = String.valueOf(esql.getCurrSeqVal("Ship.id"));
+			key = String.valueOf(esql.getCurrSeqVal("Ship.id"));
 		}  catch (Exception SQLException)
 		{ System.out.println("Error getting current squenve value!");
 			return;
