@@ -480,7 +480,7 @@ public class DBproject{
 		}
 
 		try {
-			String key = String.valueOf(esql.getCurrSeqVal("'Reservation','rnum'"));
+			key = String.valueOf(esql.getCurrSeqVal("'Reservation','rnum'"));
 			String csv_inputs = String.join(",", key, ccid, cid, status);
 			String query = "INSERT INTO Reservation (rnum, ccid, cid, status) VALUES ("+csv_inputs+");\n";
 			esql.executeUpdate(query);
