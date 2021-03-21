@@ -320,23 +320,28 @@ public class DBproject{
 			System.out.println("Your input is invalid!");
 			return;
 		}
-		System.out.print("Please enter the number of seats on the ship (****): ");
+		if (age < 0) {
+		throw new Exception("Error! Ship's age must be positive.");
+		System.out.print("Please enter the number of seats on the ship: ");
 		try {
 			seats = in.readLine();
 		}catch (Exception e) {
 			System.out.println("Your input is invalid!");
 			return;
 		}
+		if (seats <= 0 || seats >= 500) {
+		throw new Exception("Error! Number of seats must be between 0 and 500.");
+}
 
 		try {
-			key = String.valueOf(esql.getCurrSeqVal("'Ship','id'") + 1);
+			key = String.valueOf(esql.getCurrSeqVal("'Ship','id'"));
 		}  catch (Exception SQLException)
 		{ System.out.println("Error getting current squenve value!");
 			return;
 		}
 		try {
 			String csv_inputs = String.join(",",key,make,model,age,seats);
-			String query = "INSERT INTO Ship (id, make, model, age, seats) VALUES ("+csv_inputs+");\n";
+			String query = "INSERT INTO Ship VALUES ("+csv_inputs+");\n";
 			esql.executeUpdate(query);
 		}  catch (Exception SQLException)
 		{ System.out.println("Error running query!");
