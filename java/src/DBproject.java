@@ -329,7 +329,17 @@ public class DBproject{
 
 		try {
 			esql.executeUpdate("SELECT NEXT VALUE for Ship.id;\n");
+		}  catch (Exception SQLException)
+		{ System.out.println("Error getting next value for Ship.id!");
+			return;
+		}
+		try {
 			String key = String.valueOf(esql.getCurrSeqVal("Ship.id"));
+		}  catch (Exception SQLException)
+		{ System.out.println("Error getting current squenve value!");
+			return;
+		}
+		try {
 			String csv_inputs = String.join(",",key,make,model,age,seats);
 			String query = "INSERT INTO Ship (id, make, model, age, seats) VALUES ("+csv_inputs+");\n";
 			esql.executeUpdate(query);
@@ -568,14 +578,14 @@ public class DBproject{
 			return;
 		}//end try
 
-		System.out.print("Please input W: For waitlist, C for confirmed, or R for reservation: ");
+		System.out.print("Please input W for waitlist, C for confirmed, or R for reservation: ");
 		try {
 			P_status = in.readLine();
 		} catch (Exception e) {
 			System.out.println("Your input is invalid!");
 			return;
 		}
-		if(P_status != "W" || P_status != "C" || P_status != "R")
+		if(P_status != "W" && P_status != "C" && P_status != "R")
 		{
 			System.out.println("Your input is invalid!");
 			return;
