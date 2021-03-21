@@ -321,7 +321,8 @@ public class DBproject{
 			return;
 		}
 		if (age < 0) {
-		throw new Exception("Error! Ship's age must be positive.");
+			throw new Exception("Error! Ship's age must be positive.");
+		}
 		System.out.print("Please enter the number of seats on the ship: ");
 		try {
 			seats = in.readLine();
@@ -330,21 +331,21 @@ public class DBproject{
 			return;
 		}
 		if (seats <= 0 || seats >= 500) {
-		throw new Exception("Error! Number of seats must be between 0 and 500.");
-}
+			throw new Exception("Error! Number of seats must be between 0 and 500.");
+		}
 
 		try {
 			key = String.valueOf(esql.getCurrSeqVal("'Ship','id'"));
-		}  catch (Exception SQLException)
-		{ System.out.println("Error getting current squenve value!");
+		}catch (Exception SQLException){
+			System.out.println("Error getting current squenve value!");
 			return;
 		}
 		try {
 			String csv_inputs = String.join(",",key,make,model,age,seats);
 			String query = "INSERT INTO Ship VALUES ("+csv_inputs+");\n";
 			esql.executeUpdate(query);
-		}  catch (Exception SQLException)
-		{ System.out.println("Error running query!");
+		}catch (Exception SQLException) {
+			System.out.println("Error running query!");
 			return;
 		}
 	}
