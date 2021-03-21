@@ -495,7 +495,7 @@ public class DBproject{
 			return;
 		}//end try
 
-		System.out.print("Please input departure date in the format YYYY-MM-DD");
+		System.out.print("Please input departure date in the format YYYY-MM-DD: ");
 		try {
 			date = in.readLine();
 			java.sql.Date.valueOf(date);
