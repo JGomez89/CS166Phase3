@@ -188,7 +188,8 @@ public class DBproject{
 	public int getCurrSeqVal(String sequence) throws SQLException {
 		Statement stmt = this._connection.createStatement ();
 
-		ResultSet rs = stmt.executeQuery (String.format("Select currval('%s')", sequence));
+		// select currval(pg_get_serial_sequence('names', 'id'));
+		ResultSet rs = stmt.executeQuery ("Select currval(pg_get_serial_sequence("+sequence+"));\n");
 		if (rs.next()) return rs.getInt(1);
 		return -1;
 	}
@@ -298,21 +299,21 @@ public class DBproject{
 	public static void AddShip(DBproject esql) {//1
 		String key,make,model,age,seats;
 
-		System.out.print("Please enter the ship\'s make: ");
+		System.out.print("Please enter the ship's make: ");
 		try {
 			make = in.readLine();
 		}catch (Exception e) {
 			System.out.println("Your input is invalid!");
 			return;
 		}
-		System.out.print("Please enter the ship\'s model: ");
+		System.out.print("Please enter the ship's model: ");
 		try {
 			model = in.readLine();
 		}catch (Exception e) {
 			System.out.println("Your input is invalid!");
 			return;
 		}
-		System.out.print("Please enter the ship\'s age (YYYY): ");
+		System.out.print("Please enter the ship's age (YYYY): ");
 		try {
 			age = in.readLine();
 		}catch (Exception e) {
@@ -326,9 +327,9 @@ public class DBproject{
 			System.out.println("Your input is invalid!");
 			return;
 		}
-		
+
 		try {
-			key = String.valueOf(esql.getCurrSeqVal("Ship_id_seq") + 1);
+			key = String.valueOf(esql.getCurrSeqVal("'Ship','id'") + 1);
 		}  catch (Exception SQLException)
 		{ System.out.println("Error getting current squenve value!");
 			return;
@@ -346,14 +347,14 @@ public class DBproject{
 	public static void AddCaptain(DBproject esql) {//2
 		String fullname, nationality;
 
-		System.out.print("Please enter captain\'s fullname: ");
+		System.out.print("Please enter captain's fullname: ");
 		try {
 			fullname = in.readLine();
 		}catch (Exception e) {
 			System.out.println("Your input is invalid!");
 			return;
 		}
-		System.out.print("Please enter captain\'s nationality: ");
+		System.out.print("Please enter captain's nationality: ");
 		try {
 			nationality = in.readLine();
 		}catch (Exception e) {
@@ -445,14 +446,14 @@ public class DBproject{
 		// Given a customer and a Cruise that he/she wants to book, add a reservation to the DB
 		String ccid, cid, status;
 
-		System.out.print("Please enter customer\'s ID: ");
+		System.out.print("Please enter customer's ID: ");
 		try {
 			ccid = in.readLine();
 		}catch (Exception e) {
 			System.out.println("Your input is invalid!");
 			return;
 		}
-		System.out.print("Please enter cruise\'s ID: ");
+		System.out.print("Please enter cruise's ID: ");
 		try {
 			cid = in.readLine();
 		}catch (Exception e) {
