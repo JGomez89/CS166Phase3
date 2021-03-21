@@ -320,7 +320,7 @@ public class DBproject{
 			System.out.println("Your input is invalid!");
 			return;
 		}
-		if (age < 0) {
+		if (String.valueOf(age) < 0) {
 			throw new Exception("Error! Ship's age must be positive.");
 		}
 		System.out.print("Please enter the number of seats on the ship: ");
@@ -330,7 +330,7 @@ public class DBproject{
 			System.out.println("Your input is invalid!");
 			return;
 		}
-		if (seats <= 0 || seats >= 500) {
+		if (String.valueOf(seats) <= 0 || String.valueOf(seats) >= 500) {
 			throw new Exception("Error! Number of seats must be between 0 and 500.");
 		}
 
