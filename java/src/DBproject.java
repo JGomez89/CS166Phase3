@@ -297,7 +297,7 @@ public class DBproject{
 	}//end readChoice
 
 	public static void AddShip(DBproject esql) {//1
-		String key,make,model,age,seats;
+		String key,make,model,age,seats; key = make = model = age = seats = "";
 
 		System.out.print("Please enter the ship's make: ");
 		try {
