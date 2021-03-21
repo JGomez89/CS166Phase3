@@ -342,7 +342,7 @@ public class DBproject{
 
 
 		try {
-			key = String.valueOf(esql.getCurrSeqVal("'Ship','id'"));
+			key = String.valueOf(esql.getCurrSeqVal("'Ship','id'")+1);
 		}catch (Exception SQLException){
 			System.out.println("Error getting current squenve value!");
 			return;
@@ -358,7 +358,7 @@ public class DBproject{
 	}
 
 	public static void AddCaptain(DBproject esql) {//2
-		String fullname, nationality;
+		String key, fullname, nationality;
 
 		System.out.print("Please enter captain's fullname: ");
 		try {
@@ -376,8 +376,7 @@ public class DBproject{
 		}
 
 		try {
-			esql.executeUpdate("SELECT NEXT VALUE for Captain.id;\n");
-			String key = String.valueOf(esql.getCurrSeqVal("Captain.id"));
+			key = String.valueOf(esql.getCurrSeqVal("'Captain','id'"));
 			String csv_inputs = String.join(",", key, fullname, nationality);
 			String query = "INSERT INTO Captain (id, fullname, nationality) VALUES ("+csv_inputs+");\n";
 			esql.executeUpdate(query);
@@ -388,7 +387,7 @@ public class DBproject{
 	}
 
 	public static void AddCruise(DBproject esql) {//3
-		String cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_port, departure_port;
+		String key, cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_port, departure_port;
 
 		System.out.print("Please enter cost of cruise: ");
 		try {
@@ -443,8 +442,7 @@ public class DBproject{
 		}
 
 		try {
-			esql.executeUpdate("SELECT NEXT VALUE for Cruise.cnum;\n");
-			String key = String.valueOf(esql.getCurrSeqVal("Cruise.cnum"));
+			key = String.valueOf(esql.getCurrSeqVal("'Cruise','cnum'"));
 			String csv_inputs = String.join(",", key, cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_port, departure_port);
 			String query = "INSERT INTO Cruise (cnum, cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_port, departure_port) VALUES ("+csv_inputs+");\n";
 			esql.executeUpdate(query);
@@ -457,7 +455,7 @@ public class DBproject{
 
 	public static void BookCruise(DBproject esql) {//4
 		// Given a customer and a Cruise that he/she wants to book, add a reservation to the DB
-		String ccid, cid, status;
+		String key, ccid, cid, status;
 
 		System.out.print("Please enter customer's ID: ");
 		try {
@@ -482,9 +480,7 @@ public class DBproject{
 		}
 
 		try {
-			esql.executeUpdate("SELECT NEXT VALUE for Reservation.rnum;\n");
-			// String sequence = esql.executeQueryAndReturnResult("SELECT rnum FROM Reservation;\n")
-			String key = String.valueOf(esql.getCurrSeqVal("Reservation.rnum"));
+			String key = String.valueOf(esql.getCurrSeqVal("'Reservation','rnum'"));
 			String csv_inputs = String.join(",", key, ccid, cid, status);
 			String query = "INSERT INTO Reservation (rnum, ccid, cid, status) VALUES ("+csv_inputs+");\n";
 			esql.executeUpdate(query);
