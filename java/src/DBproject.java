@@ -553,7 +553,7 @@ public class DBproject{
 	public static void ListsTotalNumberOfRepairsPerShip(DBproject esql) {//6
 		// Count number of repairs per Ships and list them in descending order
 		String query;
-		query = "SELECT shipID FROM Repairs ORDER BY COUNT(ship_id) DESC;\n";
+		query = "SELECT shipID FROM Repairs ORDER BY COUNT(ship_id) DESC;";
 		try {
 			esql.executeQueryAndPrintResult(query);
 		}  catch (Exception SQLException)
